@@ -57,9 +57,6 @@ services:
 
     entrypoint: /startapp.sh
 
-    ports:
-      - 8000:80
-
     environment:
       - DATABASE_URL=mysql://user:password@db:3306/appDB
       - PYTHONUNBUFFERED=1

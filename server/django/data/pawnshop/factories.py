@@ -19,4 +19,5 @@ class CityFactory(DjangoModelFactory):
     
 def populate_cities():
     cities = CityFactory.create_batch(50)
+    cities.sort(key=lambda city: -city.number)
     return cities

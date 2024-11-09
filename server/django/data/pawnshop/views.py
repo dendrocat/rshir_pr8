@@ -27,7 +27,7 @@ class CreateProduct(FormMixin, CreateView):
     model = Product
     fields = ['name', 'price', 'mat']
 
-    template_name = "pawnshop/form.html"
+    template_name = "form.html"
     success_url = reverse_lazy('all-product')
     title = "Форма добавления товара"
     button_text = "Добавить товар"
@@ -74,7 +74,7 @@ class GraphicsList(DataMixin, ListView):
 
 class DeleteProductView(FormMixin, FormView):
     form_class = DeleteProduct
-    template_name = "pawnshop/form.html"
+    template_name = "form.html"
     success_url = reverse_lazy('delete-product')
     
     title = "Форма удаления товара"
@@ -108,7 +108,7 @@ def download_pdf(request, name):
 
 class PDFDeleteView(FormMixin, FormView):
     form_class = DeletePDF
-    template_name = "pawnshop/form.html"
+    template_name = "form.html"
     success_url = reverse_lazy('all-pdf')
     
     title = "Форма удаления файлов"

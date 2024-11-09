@@ -25,7 +25,7 @@ def sign_up(request):
         'button_text': "Зарегистрироваться"
     }
     
-    return render(request, "pawnshop/form.html", context)
+    return render(request, "form.html", context)
 
 
 def sign_in(request):
@@ -52,7 +52,7 @@ def sign_in(request):
         "button_text": "Войти"
     }
     
-    return render(request, "pawnshop/form.html", context)
+    return render(request, "form.html", context)
 
 
 def sign_down(request):

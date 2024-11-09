@@ -57,9 +57,6 @@ class CreatePDF(forms.ModelForm):
 class DeletePDF(forms.Form):
     pk = forms.IntegerField(label="Введите ID файла")
     
-    template_name = "pawnshop/form.html"
-    success_url = 'all-pdf'
-    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.label_suffix = ""
