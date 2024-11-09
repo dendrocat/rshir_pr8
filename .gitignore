@@ -1,4 +1,4 @@
 __pycache__/
-sql/data
-redis/data
-server/django/media
+dbs/sql/data
+dbs/redis/data
+server/django/data/media
