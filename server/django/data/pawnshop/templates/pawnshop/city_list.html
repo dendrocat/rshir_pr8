@@ -1,0 +1,24 @@
+{% extends "pawnshop/base.html" %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Численность населения</th> 
+        <th>Страна</th>
+        <th>Мэр</th>
+        <th>Индекс</th>
+    </tr>
+    {% for c in cities %}
+    <tr>
+        <td>{{ c.pk }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.number }}</td>
+        <td>{{ c.country }}</td>
+        <td>{{ c.mayor }}</td>
+        <td>{{ c.postcode }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

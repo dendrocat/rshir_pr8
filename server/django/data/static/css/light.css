@@ -1,0 +1,17 @@
+body {
+    background-color: whitesmoke;
+    color: black;
+    --border-color: grey;
+}
+
+table {
+    border: 2px solid var(--border-color);
+}
+
+th {
+    border: 1px solid var(--border-color);
+}
+
+td { 
+    border: 1px solid var(--border-color);
+}

@@ -1,0 +1,18 @@
+{% extends "pawnshop/base.html" %}
+{% load navtags %}
+
+
+{% block content %}
+<div class="nav">
+{% for urls in menu %}
+    {% filter_urls urls as items %}
+    {% for subitem in items %}
+        <a href="{% get_nav_url subitem %}">{{ subitem.name }}</a>
+    {% endfor %}
+    {% if not forloop.last and items %}
+        <div class="space"></div>
+    {% endif %}
+{% endfor %}
+</div>
+
+{% endblock content %}

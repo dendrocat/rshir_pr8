@@ -1,0 +1,95 @@
+services:
+  db_redis:
+    image: redis
+    container_name: redis_db
+
+    environment:
+      - REDIS_PASSWORD=password
+      - REDIS_USER=user
+      - REDIS_USER_PASSWORD=password
+
+    volumes:
+      - ./dbs/redis/data:/data
+      - ./dbs/redis/confs/redis.conf:/usr/local/etc/redis/redis.conf
+
+    restart: always
+
+    # ports:
+    #   - 6379:6379
+
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  db_mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    volumes:
+      - ./dbs/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./dbs/sql/data:/var/lib/mysql 
+
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: appDB
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 1234
+
+    # ports:
+    #   - 3306:3306
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web_django:
+    build: .
+    container_name: django_server
+
+    volumes:
+      - ./server/django/startapp.sh:/startapp.sh
+      - ./server/django/data:/app
+
+    entrypoint: /startapp.sh
+
+    ports:
+      - 8000:80
+
+    environment:
+      - DATABASE_URL=mysql://user:password@db:3306/appDB
+      - PYTHONUNBUFFERED=1
+      - DJANGO_SUPERUSER_USERNAME=root
+      - DJANGO_SUPERUSER_EMAIL=root@example.com
+      - DJANGO_SUPERUSER_PASSWORD=1234
+
+    depends_on:
+      db_mysql:
+        condition: service_healthy
+      db_redis:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "python", "manage.py", "check"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  web_nginx:
+    image: nginx
+    container_name: nginx_server
+
+    volumes:
+      - ./server/nginx/confs/:/etc/nginx/conf.d
+      - ./server/nginx/html:/server/html
+      - ./server/nginx/staticfiles:/staticfiles
+
+    restart: always
+
+    ports:
+      - 80:80

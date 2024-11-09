@@ -1,0 +1,25 @@
+{% extends "pawnshop/base.html" %}
+{% load size_extra %}
+
+{% block content %}
+{% if files %}
+<table>
+    <tr>
+        <th>ID</th><th>Наименование</th><th>Размер</th><th>Ссылка</th> 
+    </tr>
+    {% for f in files %}
+    <tr>
+        <td>{{ f.pk }}</td>
+        <td>{{ f.name }}</td>
+        <td>{% convert_size f.size %}</td>
+        <td>
+            <a href="{{ f.get_absolute_url }}"> Загрузить </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% else %}
+<p class='message'> Файлы отсутствуют </p>
+{% endif %}
+{% endblock content %}

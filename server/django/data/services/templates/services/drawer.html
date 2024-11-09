@@ -1,0 +1,11 @@
+{% extends "pawnshop/base.html" %}
+
+{% block content %}
+
+<svg width="{{ size }}px" height="{{ size }}px">
+    {% autoescape off %}
+    {{ svg }}
+    {% endautoescape %}
+</svg>
+
+{% endblock %}

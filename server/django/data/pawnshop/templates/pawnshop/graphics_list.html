@@ -1,0 +1,21 @@
+{% extends "pawnshop/base.html" %}
+
+{% block content %}
+{% if charts %}
+<table>
+    <tr>
+        <th>Название</th>
+        <th>График</th>
+    </tr>
+    {% for c in charts %}
+    <tr>
+        <td>{{ c.name }}</td>
+        <td><img src="{{ c.file.url }}" alt='Данные отсутствуют'></td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="message">Данные для формирования графиков отсутствуют</p> 
+<p class="message">Пожалуйста, перейдите по <a href="{% url "all-city" %}">ссылке</a> для создания данных</p> 
+{% endif %}
+{% endblock content %}

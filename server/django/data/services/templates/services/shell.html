@@ -1,0 +1,12 @@
+{% extends "pawnshop/base.html" %}
+
+{% block content %}
+
+{% for com in comands %}
+
+<h1>Команда: {{ com.com }} </h1>
+<p> {{ com.res }} </p>
+
+{% endfor %}
+
+{% endblock %}

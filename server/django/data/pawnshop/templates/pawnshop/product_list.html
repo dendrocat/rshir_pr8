@@ -1,0 +1,22 @@
+{% extends "pawnshop/base.html" %}
+{% load product_extra %}
+
+{% block content %}
+{% if products %}
+<table>
+    <tr>
+        <th>ID</th><th>Наименование</th><th>Цена</th><th>Материал</th> 
+    </tr>
+    {% for p in products %}
+    <tr>
+        <td>{{ p.pk }}</td>
+        <td>{{ p.name }}</td>
+        <td>{% convert_price p.price %} </td>
+        <td>{{ p.mat.name }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p class="message">Товары отсутствуют </p> 
+{% endif %}
+{% endblock content %}

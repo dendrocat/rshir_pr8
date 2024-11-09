@@ -1,0 +1,30 @@
+{% load static %}
+{% load theme_extra %}
+
+{% get_theme as theme %}
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>{{ title }}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+        <link rel="stylesheet" href="{% static "css/base.css" %}" type="text/css">
+        <link rel="stylesheet" href="{% static theme %}" type="text/css">
+    </head>
+    <body>
+        <div class="nav-back">
+        {% if require_back is not False %}
+            <a class="back" href="{% url "home" %}">Назад</a>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <p class="username">{{ user.username }}</p>
+        {% endif %}
+        </div>
+        <main>
+            <h1>{{ title }}</h1>
+            
+            {% block content %}
+            {% endblock content %}
+
+        </main>
+    </body>
+</html>
